@@ -1,5 +1,5 @@
 # Energy and Utilities Billing
-This project implements an end-to-end data pipeline that ingests Nigerian energy/utilities billing and payment data, transforms it, and loads it into Google BigQuery for analytics and reporting. It is built in Python and aims to help stakeholders (utilities companies, regulators, analysts) gain insights into billing efficiencies, revenue collection performance, customer payment behaviors, and billing anomalies in the Nigerian energy sector.
+This project implements an end-to-end data pipeline that ingests Nigerian energy/utilities billing and payment data, transforms it, and loads it into Google Snowflake for analytics and reporting. It is built in Python and aims to help stakeholders (utilities companies, regulators, analysts) gain insights into billing efficiencies, revenue collection performance, customer payment behaviors, and billing anomalies in the Nigerian energy sector.
 
 ## Purpose & Motivation
 
