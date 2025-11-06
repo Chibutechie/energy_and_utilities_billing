@@ -1,4 +1,4 @@
-# ⚡ Nigerian Energy & Utilities Billing Pipeline
+# Nigerian Energy & Utilities Billing Pipeline
 
 A comprehensive ETL data pipeline that ingests, transforms, and loads Nigerian energy billing and payment data into PostgreSQL for analytics and reporting. This project empowers utilities companies, regulators, and analysts to gain actionable insights into billing efficiency, revenue collection, customer payment behaviors, and billing anomalies.
 
@@ -21,11 +21,11 @@ According to [Nairametrics](https://nairametrics.com/2022/09/25/discos-collected
 
 This pipeline provides stakeholders with:
 
-- ✅ Automated data ingestion and transformation
-- ✅ Centralized data warehouse for analytics
-- ✅ Insights into billing efficiency trends
-- ✅ Customer payment behavior analysis
-- ✅ Revenue leakage identification
+- Automated data ingestion and transformation
+- Centralized data warehouse for analytics
+- Insights into billing efficiency trends
+- Customer payment behavior analysis
+- Revenue leakage identification
 
 ---
 
@@ -41,12 +41,10 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 ## Architecture
 
-````
-![alt text](image.png)
-
+![alt text](image-1.png)
 ---
 
-## 📦 Dataset
+## Dataset
 
 **Source**: [Hugging Face Dataset](https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments)
 
@@ -136,7 +134,7 @@ PG_PORT=5432
 PG_DATABASE=energydb
 ```
 
-> ⚠️ **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
+>  **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
 
 #### 5. Create Project Structure
 
@@ -147,7 +145,7 @@ touch extract/extract.py transform/transform.py load/load.py
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 energy_billing/
@@ -321,7 +319,7 @@ python load/load.py
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Electric Sheep Africa for providing the dataset
 - NERC (Nigerian Electricity Regulatory Commission) for sector reports
@@ -329,10 +327,10 @@ python load/load.py
 
 ---
 
-## 📞 Support
+## Support
 
 For questions or support, please open an issue in the GitHub repository or contact [chibuezeanalyst@gmail.com]
 
 ---
 
-**Built with ❤️ for the Nigerian Energy Sector**
+**Built with ❤️ for the Nigerian Energy Sector**H
