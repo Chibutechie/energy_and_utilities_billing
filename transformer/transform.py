@@ -3,6 +3,9 @@ import pandas as pd
 # load existing data 
 df = pd.read_parquet("https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.parquet")
 
+# covert file from parquet to csv 
+df.to_csv("https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.csv")
+
 # Split the billing_month column into month and year
 df[['year', 'month']] = df['billing_month'].str.split('-', expand=True)
 
