@@ -43,6 +43,21 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 ![Pipeline Architecture](assests/image-1.png)
 
+The pipeline follows a three-stage ETL process:
+
+```
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│                 │       │                 │       │                 │
+│    EXTRACT      │──────▶│   TRANSFORM     │──────▶│      LOAD       │
+│                 │       │                 │       │                 │
+│  Hugging Face   │       │  Data Cleaning  │       │   PostgreSQL    │
+│   (Parquet)     │       │  Feature Eng.   │       │   (energydb)    │
+│                 │       │  Validation     │       │                 │
+└─────────────────┘       └─────────────────┘       └─────────────────┘
+```
+
+---
+
 ## Dataset
 
 **Source**: [Hugging Face Dataset](https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments)
@@ -68,11 +83,12 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 | Technology                                                   | Purpose                                |
 | ------------------------------------------------------------ | -------------------------------------- |
-| **[Python 3.x](https://www.python.org/downloads/)**          | Core programming language              |
+| **[Python 3.8](https://www.python.org/downloads/)**          | Core programming language              |
 | **[Pandas](https://pandas.pydata.org/)**                     | Data manipulation and analysis         |
 | **[SQLAlchemy](https://www.sqlalchemy.org/)**                | Database ORM and connection management |
-| **[PostgreSQL](https://www.postgresql.org/)**                | Data warehouse and analytics database  |
+| **[PostgreSQL 18](https://www.postgresql.org/)**             | Data warehouse and analytics database  |
 | **[python-dotenv](https://pypi.org/project/python-dotenv/)** | Environment variable management        |
+| **[Datasets](https://huggingface.co/docs/datasets/)**        | Hugging Face dataset library           |
 
 ---
 
@@ -80,20 +96,23 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 ### Prerequisites
 
-- Python 3.8
+Before you begin, ensure you have the following installed:
+
+- Python 3.8 or higher
 - PostgreSQL 18
 - Git
+- pip (Python package manager)
 
 ### Installation
 
-#### 1. Create Project Directory
+#### Step 1: Create Project Directory
 
 ```bash
 mkdir energy_billing
 cd energy_billing
 ```
 
-#### 2. Set Up Virtual Environment
+#### Step 2: Set Up Virtual Environment
 
 ```bash
 # Create virtual environment
@@ -105,22 +124,25 @@ source .venv/bin/activate        # Linux/Mac
 .venv\Scripts\activate           # Windows
 ```
 
-#### 3. Install Dependencies
+#### Step 3: Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
-
-**requirements.txt**
+Create a `requirements.txt` file:
 
 ```txt
 pandas==2.2.3
 datasets==2.19.0
 sqlalchemy==2.0.36
 python-dotenv==1.0.1
+psycopg2-binary==2.9.9
 ```
 
-#### 4. Configure Environment Variables
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Step 4: Configure Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -132,26 +154,51 @@ PG_HOST=localhost
 PG_PORT=5432
 PG_DATABASE=energydb
 
+# Hugging Face Dataset URL
+API_URL=https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.parquet
 ```
 
-API_URL=https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.parquet
+> **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
 
-````
-
->  **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
-
-#### 5. Create Project Structure
+#### Step 5: Create Project Structure
 
 ```bash
+# Create main pipeline directory
 mkdir -p etl_pipeline
-touch extract.py transform.py load.py
-````
+
+# Create data directories
+mkdir -p data/raw data/processed
+
+# Create pipeline scripts
+touch etl_pipeline/extract.py
+touch etl_pipeline/transform.py
+touch etl_pipeline/load.py
+```
 
 ---
 
 ## Project Structure
 
-````
+```
+energy_billing/
+│
+├── etl_pipeline/
+│   ├── __init__.py
+│   ├── extract.py              # Data extraction from Hugging Face
+│   ├── transform.py            # Data transformation and cleaning
+│   └── load.py                 # Data loading into PostgreSQL
+│
+├── data/
+│   ├── raw/                    # Raw parquet files
+│   └── processed/              # Transformed CSV files
+│
+├── assests/
+│   └── image-1.png            # Architecture diagram
+│
+├── .env                        # Environment variables (gitignored)
+├── .gitignore
+└── README.md                   # This file
+```
 
 ---
 
@@ -167,36 +214,67 @@ Cleans and transforms raw data for analytics.
 
 ### 3. Load Stage (`etl_pipeline/load.py`)
 
-Loads transformed data into PostgreSQL database.
-
----
+## Loads transformed data into PostgreSQL database.
 
 ## Running the Pipeline
 
+Execute each stage separately for testing or debugging:
+
 ```bash
-# Extract data
-python extract.py
+# Stage 1: Extract data from Hugging Face
+python etl_pipeline/extract.py
 
-# Transform data
-python transform.py
+# Stage 2: Transform and clean data
+python etl_pipeline/transform.py
 
-# Load data
-python load.py
-````
+# Stage 3: Load data into PostgreSQL
+python etl_pipeline/load.py
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
 ## Acknowledgments
 
-- Electric Sheep Africa for providing the dataset
-- NERC (Nigerian Electricity Regulatory Commission) for sector reports
-- The Nigerian energy sector stakeholders
+- **Electric Sheep Africa** for providing the comprehensive dataset
+- **NERC (Nigerian Electricity Regulatory Commission)** for sector reports and guidance
+- **The Nigerian energy sector stakeholders** for their continuous efforts to improve the sector
 
 ---
 
 ## Support
 
-For questions or support, please open an issue in the GitHub repository or contact [chibuezeanalyst@gmail.com]
+For questions, issues, or support:
+
+- Email: [chibuezeanalyst@gmail.com](mailto:chibuezeanalyst@gmail.com)
+
+---
+
+## Roadmap
+
+Future enhancements planned for this project:
+
+- [ ] Add data validation tests
+- [ ] Implement incremental loading
+- [ ] Create interactive dashboard with Plotly/Streamlit
+- [ ] Add automated scheduling with Apache Airflow
+- [ ] Implement data quality monitoring
+- [ ] Add API endpoint for real-time queries
+- [ ] Create Docker container for easy deployment
+- [ ] Add unit and integration tests
+
+---
+
+## Additional Resources
+
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Pandas User Guide](https://pandas.pydata.org/docs/user_guide/index.html)
+- [SQLAlchemy Tutorial](https://docs.sqlalchemy.org/en/20/tutorial/)
+- [Python Dotenv Documentation](https://pypi.org/project/python-dotenv/)
+- [NERC Reports](https://nerc.gov.ng/)
 
 ---
 
