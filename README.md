@@ -160,6 +160,8 @@ PG_DATABASE=energydb
 
 > **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
 
+---
+
 #### Step 5: Create Project Structure
 
 ```bash
