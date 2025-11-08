@@ -155,7 +155,8 @@ PG_PORT=5432
 PG_DATABASE=energydb
 
 # Hugging Face Dataset URL
-```API_URL=https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.parquet
+```
+API_URL=https://huggingface.co/datasets/electricsheepafrica/nigerian_energy_and_utilities_billing_payments/resolve/main/nigerian_energy_and_utilities_billing_payments.parquet
 ```
 
 > **Security Note**: Add `.env` to `.gitignore` to prevent credential exposure.
@@ -185,21 +186,21 @@ touch etl_pipeline/load.py
 energy_billing/
 │
 ├── etl_pipeline/
-│   ├── __init__.py
-│   ├── extract.py              # Data extraction from Hugging Face
-│   ├── transform.py            # Data transformation and cleaning
-│   └── load.py                 # Data loading into PostgreSQL
+│   ├── __init__.
+│   ├── extract.py              
+│   ├── transform.py            
+│   └── load.py                 
 │
 ├── data/
-│   ├── raw/                    # Raw parquet files
-│   └── processed/              # Transformed CSV files
+│   ├── raw/                    
+│   └── processed/              
 │
 ├── assests/
-│   └── image-1.png            # Architecture diagram
+│   └── image-1.png            
 │
-├── .env                        # Environment variables (gitignored)
+├── .env                        
 ├── .gitignore
-└── README.md                   # This file
+└── README.md                   
 ```
 
 ---
