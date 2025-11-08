@@ -43,6 +43,8 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 ![Pipeline Architecture](assests/image-1.png)
 
+![alt text](image.png)
+
 The pipeline follows a three-stage ETL process:
 
 ```
