@@ -41,9 +41,7 @@ Successfully extract, transform, and load data from source to data warehouse wit
 
 ## Architecture
 
-![Pipeline Architecture](assests/image-1.png)
-
-![alt text](image.png)
+<img width="869" height="299" alt="image" src="https://github.com/user-attachments/assets/03692af9-83d1-4793-95f8-8a0837d38935" />
 
 The pipeline follows a three-stage ETL process:
 
@@ -53,7 +51,7 @@ The pipeline follows a three-stage ETL process:
 │    EXTRACT      │──────▶│   TRANSFORM     │──────▶│      LOAD       │
 │                 │       │                 │       │                 │
 │  Hugging Face   │       │  Data Cleaning  │       │   PostgreSQL    │
-│   (Parquet)     │       │  Feature Eng.   │       │   (energydb)    │
+│   (Parquet)     │       │                 │       │   (energydb)    │
 │                 │       │  Validation     │       │                 │
 └─────────────────┘       └─────────────────┘       └─────────────────┘
 ```
