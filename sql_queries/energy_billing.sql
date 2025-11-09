@@ -1,18 +1,16 @@
 --- Monthly Revenue Trend 
-
 select 
     year,
     month,
-    sum(amount_billed_ngn) as total_billed,
-    sum(amount_paid_ngn) as total_collected,
-    sum(arrears_ngn) as total_arrears,
+    round (sum(amount_billed_ngn):: numeric, 2) as total_billed,
+   round (sum(amount_paid_ngn):: numeric, 2) as total_collected,
+   round (sum(arrears_ngn):: numeric, 2) as total_arrears,
     round (CAST(SUM(amount_paid_ngn) / nullif(SUM(amount_billed_ngn), 0) as NUMERIC), 2) as collection_rate
 from energy_billing
 group by 1, 2
 order by year, month;
 
 --- Payment behaviour by tariff
-
 select 
     tariff_band,
     count (*) as total_customers,
@@ -25,7 +23,6 @@ group by 1
 order by on_time_payment_rate desc;
 
 --- top customers by arrears
-
 select 
 	customer_id,
 	disco,
@@ -36,3 +33,23 @@ from energy_billing
 group by 1, 2
 order by total_arrears desc
 limit 10;
+
+--- most used tariff band by number of customers
+select 
+	tariff_band,
+	count (*) as total_customers,
+	round (sum(amount_paid_ngn):: numeric, 2) as total_revenue,
+	round (avg(amount_paid_ngn):: numeric, 2) as avg_payment_per_customer
+from energy_billing
+group by 1
+order by total_customers desc;
+
+--- Tariff band by energy consumption
+select
+	tariff_band,
+	count (*) as total_customers,
+	round (sum(kwh):: numeric, 2) as total_kwh_consumed,
+	round (avg(kwh):: numeric, 2) as average_kwh_per_customer
+from energy_billing
+group by 1
+order by total_kwh_consumed desc;
